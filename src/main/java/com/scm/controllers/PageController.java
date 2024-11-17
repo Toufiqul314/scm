@@ -2,12 +2,12 @@ package com.scm.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
 
-    @RequestMapping("/home")
+    @GetMapping("/home")
     public String home(Model model){
         System.out.println("home page");
         model.addAttribute("name","Toufiq Technologies");
@@ -16,15 +16,33 @@ public class PageController {
     }
 
     // about page
-    @RequestMapping("/about")
+    @GetMapping("/about")
     public String aboutPage(Model model){
         model.addAttribute("isLogin",true);
         return "about";
     }
 
     // services page
-    @RequestMapping("/services")
+    @GetMapping("/services")
     public String servicesPage(Model model){
         return "services";
+    }
+
+    // contact page
+    @GetMapping("/contact")
+    public String contactPage(){
+        return "contact";
+    }
+
+    //login page
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
+
+    //register page
+    @GetMapping("/register")
+    public String registerPage(){
+        return "register";
     }
 }
