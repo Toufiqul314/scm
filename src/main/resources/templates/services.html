@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Services Page</title>
 </head>
 <body>
-    <h1>this is services page</h1>
-    <hr>
-    <div th:replace="~{base::parent(~{::.third_content})}">
-        <section id="main_content">
-            <h1>This is Dynamic services passed to fragment</h1>
-        </section>
-        <section id="second_content">
-            <h1>This is Dynamic second_content services passed to fragment</h1>
-        </section>
-        <section class="third_content">
-            <h1>This is Dynamic third_content services passed to fragment</h1>
-        </section>
-    </div>
+    <section id="content">
+        <h1>Welcome to services page </h1>
+        <h2>Services offered by SCM</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, doloribus.</p>
+    </section>
+
+    <script>
+        console.log("services page");
+    </script>
 </body>
 </html>
