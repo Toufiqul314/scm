@@ -14,4 +14,17 @@ public class PageController {
         model.addAttribute("Youtubechannel","learn code toufiqul");
         return "home";
     }
+
+    // about page
+    @RequestMapping("/about")
+    public String aboutPage(Model model){
+        model.addAttribute("isLogin",true);
+        return "about";
+    }
+
+    // services page
+    @RequestMapping("/services")
+    public String servicesPage(Model model){
+        return "services";
+    }
 }
