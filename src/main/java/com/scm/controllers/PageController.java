@@ -77,6 +77,7 @@ public class PageController {
 
         // userservice
         // UserForm converter ---> User data
+        /* not using builder
         User user=User.builder()
         .name(userForm.getName())
         .email(userForm.getEmail())
@@ -85,6 +86,15 @@ public class PageController {
         .phoneNumber(userForm.getPhoneNumber())
         .profilePic("https://i.sstatic.net/l60Hf.png")
         .build();
+        */
+
+        User user=new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("https://i.sstatic.net/l60Hf.png");
         
         User saveUser=userService.saveUser(user);
         System.out.println("save user: "+saveUser);
