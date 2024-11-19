@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.helper.Message;
+import com.scm.helper.MessageType;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,53 +25,53 @@ public class PageController {
     private UserService userService;
 
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(Model model) {
         System.out.println("home page");
-        model.addAttribute("name","Toufiq Technologies");
-        model.addAttribute("Youtubechannel","learn code toufiqul");
+        model.addAttribute("name", "Toufiq Technologies");
+        model.addAttribute("Youtubechannel", "learn code toufiqul");
         return "home";
     }
 
     // about page
     @GetMapping("/about")
-    public String aboutPage(Model model){
-        model.addAttribute("isLogin",true);
+    public String aboutPage(Model model) {
+        model.addAttribute("isLogin", true);
         return "about";
     }
 
     // services page
     @GetMapping("/services")
-    public String servicesPage(Model model){
+    public String servicesPage(Model model) {
         return "services";
     }
 
     // contact page
     @GetMapping("/contact")
-    public String contactPage(){
+    public String contactPage() {
         return "contact";
     }
 
     //login page
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 
     //register page
     @GetMapping("/register")
-    public String registerPage(Model model){
+    public String registerPage(Model model) {
 
         UserForm userForm = new UserForm();
         //default data set for register page
         //userForm.setName("Toufiqul Islam");
-        model.addAttribute("userForm",userForm);
+        model.addAttribute("userForm", userForm);
 
         return "register";
     }
 
     //processing register 
-    @RequestMapping(value="/do-register",method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm,HttpSession session){
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm, HttpSession session) {
         System.out.println("processing register");
         // fetch form data
         // UserForm class 
@@ -88,24 +90,23 @@ public class PageController {
         .phoneNumber(userForm.getPhoneNumber())
         .profilePic("https://i.sstatic.net/l60Hf.png")
         .build();
-        */
-
-        User user=new User();
+         */
+        User user = new User();
         user.setName(userForm.getName());
         user.setEmail(userForm.getEmail());
         user.setPassword(userForm.getPassword());
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setProfilePic("https://i.sstatic.net/l60Hf.png");
-        
-        User saveUser=userService.saveUser(user);
-        System.out.println("save user: "+saveUser);
+
+        User saveUser = userService.saveUser(user);
+        System.out.println("save user: " + saveUser);
 
         // message ="Registration successful";
-
         // add the message:
-        session.setAttribute("message","Registration successful");
-        
+        Message message = Message.builder().content("Registration Successfully").type(MessageType.green).build();
+        session.setAttribute("message", message);
+
         //redirectto register page
         return "redirect:/register";
     }
