@@ -24,6 +24,7 @@ import jakarta.persistence.FetchType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class User {
 
     @Id
@@ -33,7 +34,7 @@ public class User {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
-    @Getter(AccessLevel.NONE)
+   
     private String password;
     @Column(length = 1000)
     private String about;
@@ -41,14 +42,11 @@ public class User {
     private String profilePic;
     private String phoneNumber;
 
-    @Getter(value = AccessLevel.NONE)
     // information
     private boolean enabled = false;
-
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
-    @Enumerated(value = EnumType.STRING)
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
     private Providers provider = Providers.SELF;
     private String providerUserId;
