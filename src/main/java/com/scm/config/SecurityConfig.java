@@ -3,10 +3,12 @@ package com.scm.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import com.scm.services.impl.SecurityCustomUserDetailService;
 
@@ -41,6 +43,7 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
+    // configration of authentication provider spring security
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
 
@@ -50,6 +53,27 @@ public class SecurityConfig {
         //password encoder object creating the password encryption
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
+    }
+
+    // url mapping
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+
+        // configuration
+        //urls configuration public  or private access
+        httpSecurity.authorizeHttpRequests(authorize->{
+            //authorize.requestMatchers("/home","/about","/register").permitAll();
+            // ./user/any url protected access
+            authorize.requestMatchers("/user/**").authenticated();
+            // othe url protected
+            authorize.anyRequest().permitAll();
+        });
+        // form login default login page spring security
+        //something like change form login related permissions
+        httpSecurity.formLogin(Customizer.withDefaults());
+
+        return httpSecurity.build();
     }
 
     @Bean
