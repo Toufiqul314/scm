@@ -1,16 +1,27 @@
 package com.scm.config;
 
+import java.io.IOException;
+import java.text.Normalizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.scm.services.impl.SecurityCustomUserDetailService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -71,7 +82,41 @@ public class SecurityConfig {
         });
         // form login default login page spring security
         //something like change form login related permissions
-        httpSecurity.formLogin(Customizer.withDefaults());
+        //httpSecurity.formLogin(Customizer.withDefaults());
+
+        // user form login page spring security
+        httpSecurity.formLogin(formLogin->{
+
+            // user create login page url passing
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/authenticate");
+            formLogin.successForwardUrl("/user/dashboard");
+            formLogin.failureForwardUrl("/login?error=true");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
+
+            /*
+             //login form success and failure handler
+            // failure handlers
+            formLogin.failureHandler(new AuthenticationFailureHandler() {
+                @Override
+                public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+                    throw new UnsupportedOperationException("Not supported yet.");
+                }
+                
+            });
+
+            //success handler
+            formLogin.successHandler(new AuthenticationSuccessHandler() {
+                @Override
+                public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                    throw new UnsupportedOperationException("Not supported yet.");
+                }
+                
+            });
+            */
+            
+        });
 
         return httpSecurity.build();
     }
