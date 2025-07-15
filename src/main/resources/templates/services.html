@@ -9,7 +9,11 @@
     <h1>This is services page</h1>
     <hr>
     <!-- using fragment -->
-    <div th:replace="~{base::parent('three','four')}">
+    <div th:replace="~{base::parent(~{::#main_content})}">
+        <section id="main_content">
+            <h2>This is dynamic content</h2>
+            <p>Here you can find more information about our services and offerings.</p>
+        </section>
     </div>
 </body>
 </html>

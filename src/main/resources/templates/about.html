@@ -9,8 +9,11 @@
     <h1>This is about page</h1>
     <hr>
     <!-- using fragment -->
-     <div th:replace="~{base::parent(~{::div})}">
-        <div>this is dynamic content</div>
+     <div th:replace="~{base::parent(~{::section})}">
+        <section>
+            <h2>This is dynamic content</h2>
+            <p>Here you can find more information about our services and team.</p>
+        </section>
      </div>
 </body>
 </html>
