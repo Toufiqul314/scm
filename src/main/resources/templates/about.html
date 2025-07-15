@@ -9,8 +9,8 @@
     <h1>This is about page</h1>
     <hr>
     <!-- using fragment -->
-     <div th:replace="~{base::parent('one','two')}">
-
+     <div th:replace="~{base::parent(~{::div})}">
+        <div>this is dynamic content</div>
      </div>
 </body>
 </html>
