@@ -12,4 +12,16 @@ public class PageController {
         model.addAttribute("name", "Spring Boot SCM Application");
         return "home";
     }
+
+    // about page
+    @RequestMapping("/about")
+    public String aboutPage() {
+        return "about";
+    }
+
+    // services page
+    @RequestMapping("/services")
+    public String servicesPage() {
+        return "services";
+    }
 }
