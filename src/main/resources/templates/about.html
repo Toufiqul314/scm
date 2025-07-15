@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Page</title>
 </head>
 <body>
-    <h1>This is about page</h1>
-    <hr>
-    <!-- using fragment -->
-     <div th:replace="~{base::parent(~{::section})}">
-        <section>
-            <h2>This is dynamic content</h2>
-            <p>Here you can find more information about our services and team.</p>
-        </section>
-     </div>
+    <div id="content">
+        <h1>Welcome to about page</h1>
+    </div>
 </body>
 </html>
