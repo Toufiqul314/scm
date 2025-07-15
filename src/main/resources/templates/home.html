@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-th-text="${name}">HomePage</title>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
-    <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
+    <title>Home Page</title>
 </head>
-
 <body>
-    <div class="container text-3xl">
-        <h1 class="text-3xl font-bold">This is home page</h1>
-        <p class="text-3xl font-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima officiis aut ex
-            sunt, numquam amet magni culpa voluptates iste unde!</p>
+    <div id="content">
+        <h1>Welcome to home page</h1>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script>
+        console.log("This is the home page script");
+    </script>
 </body>
-
 </html>
