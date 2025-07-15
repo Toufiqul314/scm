@@ -9,7 +9,7 @@
     <h1>This is about page</h1>
     <hr>
     <!-- using fragment -->
-     <div th:insert="~{base::parent}">
+     <div th:replace="~{base::parent('one','two')}">
 
      </div>
 </body>

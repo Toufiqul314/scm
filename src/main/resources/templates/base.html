@@ -1,4 +1,6 @@
-<div th:fragment="parent">
+<div th:fragment="parent(x,y)">
     <h1>This is parent fragement</h1>
     <p>Welcome to the base template!</p>
+    <h1>value of x:  <span th:text="${x}"></span></h1>
+    <h1>value of y:  <span th:text="${y}"></span></h1>
 </div>
