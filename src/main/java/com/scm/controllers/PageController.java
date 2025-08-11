@@ -1,5 +1,6 @@
 package com.scm.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.services.UserService;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home(Model model) {
@@ -29,6 +35,7 @@ public class PageController {
     public String servicesPage() {
         return "services";
     }
+
     // contact page
     @GetMapping("/contact")
     public String contactPage() {
@@ -45,15 +52,15 @@ public class PageController {
     @GetMapping("/register")
     public String registerPage(Model model) {
         // default user form object
-        UserForm userForm=new UserForm();
+        UserForm userForm = new UserForm();
         // userForm.setName("toufiqul islam");
         model.addAttribute("userForm", userForm);
         return "register";
     }
 
     // processing register page
-    @RequestMapping(value = "/do-register",method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm){
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
         System.out.println("Processing Register Form");
         // fetch form data
         // UserForm
@@ -64,7 +71,20 @@ public class PageController {
 
         // show success message
 
-        // userservice 
+        // userservice
+        // UserForm --> User
+        User user = User.builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .profilePic(
+                        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg")
+                .build();
+        User saveUser = userService.saveUser(user);
+
+        System.out.println("user saved.");
         // message= "registered successfully";
 
         // redirect login page
